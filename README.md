@@ -33,7 +33,7 @@ Follow these steps to get the project running locally on your machine.
 
 1.  **Clone the Repository**
     ```bash
-    git clone https://github.com/yourusername/HirexHub.git
+    git clone https://github.com/KaranXNandkishore01/HirexHub.git
     cd HirexHub
     ```
 
@@ -98,4 +98,5 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ---
-*Built with ❤️ by [Karan Prajapati](https://github.com/karanprajapati)*
+*Built with ❤️ by [Karan Prajapati],[Rohit Lovevanshi] & [Man Mehra])*
+

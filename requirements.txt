@@ -1,0 +1,7 @@
+Django
+gunicorn
+whitenoise
+Pillow
+pypdf
+python-docx
+django-allauth

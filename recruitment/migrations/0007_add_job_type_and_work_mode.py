@@ -1,0 +1,20 @@
+from django.db import migrations, models
+
+class Migration(migrations.Migration):
+
+    dependencies = [
+        ('recruitment', '0006_joblisting_application_start_date'),
+    ]
+
+    operations = [
+        migrations.AddField(
+            model_name='joblisting',
+            name='job_type',
+            field=models.CharField(choices=[('Full Time', 'Full Time'), ('Part Time', 'Part Time')], default='Full Time', max_length=20),
+        ),
+        migrations.AddField(
+            model_name='joblisting',
+            name='work_mode',
+            field=models.CharField(choices=[('On Site', 'On Site'), ('Remote', 'Remote')], default='On Site', max_length=20),
+        ),
+    ]

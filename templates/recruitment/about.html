@@ -1,0 +1,121 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-10">
+        <!-- Hero Section -->
+        <div class="text-center mb-5 fade-in">
+            <h1 class="display-3 fw-bold mb-3" style="text-shadow: 0 4px 15px rgba(0,0,0,0.1);">About <span
+                    class="text-primary-emphasis">HirexHub</span></h1>
+            <p class="lead opacity-75">Revolutionizing Recruitment with Intelligence and Style.</p>
+        </div>
+
+        <!-- Main Content Card -->
+        <div class="card shadow-lg mb-5 glass-card">
+            <div class="card-body p-5">
+                <div class="row align-items-center mb-5">
+                    <div class="col-lg-6">
+                        <h2 class="fw-bold mb-4 text-gradient">Who We Are</h2>
+                        <p class="fs-5 opacity-75" style="line-height: 1.8;">
+                            Welcome to <strong>HirexHub</strong>, the premier platform connecting top-tier talent with
+                            world-class opportunities. We are more than just a job board; we are a career ecosystem
+                            designed to empower both job seekers and employers.
+                        </p>
+                        <p class="fs-5 opacity-75" style="line-height: 1.8;">
+                            Our mission is to streamline the hiring process using advanced technology while maintaining
+                            a human touch. We believe that finding your dream job or your next star employee should be
+                            an inspiring journey, not a chore.
+                        </p>
+                    </div>
+                    <div class="col-lg-6 text-center">
+                        <div class="p-4 rounded-circle bg-body-tertiary d-inline-block shadow-sm icon-container">
+                            <i class="fas fa-network-wired fa-5x text-primary"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <hr class="my-5 opacity-25">
+
+                <!-- Vision Section -->
+                <div class="row align-items-center mb-5">
+                    <div class="col-lg-6 order-lg-2">
+                        <h2 class="fw-bold mb-4 text-gradient">Our Vision</h2>
+                        <p class="fs-5 opacity-75" style="line-height: 1.8;">
+                            At <strong>HirexHub</strong>, we envision a world where skills and passion are the only
+                            currency that matters. We represent the future of work—transparent, efficient, and
+                            inclusive.
+                        </p>
+                    </div>
+                    <div class="col-lg-6 order-lg-1 text-center">
+                        <div class="p-4 rounded-circle bg-body-tertiary d-inline-block shadow-sm icon-container">
+                            <i class="fas fa-globe-americas fa-5x text-success"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <hr class="my-5 opacity-25">
+
+                <!-- Owner Section -->
+                <div class="text-center">
+                    <h2 class="fw-bold mb-4 text-gradient">Meet the Founder</h2>
+                    <div class="d-inline-block p-4 rounded-3 shadow-sm founder-card bg-body-secondary">
+                        <div class="mb-3">
+                            <i class="fas fa-user-tie fa-4x text-body"></i>
+                        </div>
+                        <h4 class="fw-bold">Karan Prajapati</h4>
+                        <p class="text-primary fw-bold mb-0">Founder & CEO, HirexHub</p>
+                        <p class="mt-2 small max-w-md mx-auto fst-italic opacity-75" style="max-width: 400px;">
+                            "I built HirexHub to bridge the gap between ambition and opportunity. We are dedicated to
+                            your success."
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .glass-card {
+        background: rgba(255, 255, 255, 0.7);
+        backdrop-filter: blur(10px);
+    }
+
+    [data-bs-theme="dark"] .glass-card {
+        background: rgba(30, 32, 40, 0.6);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .text-gradient {
+        background: var(--primary-gradient, linear-gradient(135deg, #667eea 0%, #764ba2 100%));
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    .icon-container {
+        transition: transform 0.3s ease;
+    }
+
+    .icon-container:hover {
+        transform: scale(1.1) rotate(5deg);
+    }
+
+    .fade-in {
+        animation: fadeIn 1.5s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+</style>
+{% endblock %}

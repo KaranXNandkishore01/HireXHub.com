@@ -1,0 +1,173 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col-12">
+        <div
+            class="d-flex justify-content-between align-items-center p-4 rounded shadow-sm border-start border-4 border-success glass-panel">
+            <div>
+                <h2 class="mb-0">Hello, {{ user.first_name }}! 🚀</h2>
+                <p class="text-muted mb-0">Ready to find your next adventure?</p>
+            </div>
+            <div class="text-end">
+                <a href="{% url 'profile' %}" class="btn btn-outline-success shadow-sm"><i
+                        class="fas fa-user-circle me-2"></i>My Profile</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Stats Row -->
+<div class="row mb-5 g-3">
+    <div class="col-md-6">
+        <div class="card border-0 shadow-sm h-100 bg-success text-white">
+            <div class="card-body d-flex align-items-center justify-content-between">
+                <div>
+                    <h5 class="card-title fw-light mb-1">Jobs Applied</h5>
+                    <h2 class="mb-0 fw-bold">{{ total_applications }}</h2>
+                </div>
+                <i class="fas fa-paper-plane fa-2x opacity-50"></i>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card border-0 shadow-sm h-100 theme-card">
+            <div class="card-body d-flex align-items-center justify-content-between">
+                <div>
+                    <h5 class="card-title fw-bold text-body mb-1">Profile Completeness</h5>
+                    {% if not user.profile.profile_picture or not user.profile.bio %}
+                    <div class="progress" style="height: 10px; width: 150px;">
+                        <div class="progress-bar bg-warning" role="progressbar" style="width: 50%" aria-valuenow="50"
+                            aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                    <small class="text-warning mt-1 d-block">Complete your profile to stand out!</small>
+                    {% else %}
+                    <div class="progress" style="height: 10px; width: 150px;">
+                        <div class="progress-bar bg-success" role="progressbar" style="width: 100%" aria-valuenow="100"
+                            aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                    <small class="text-success mt-1 d-block">Looking good! 😎</small>
+                    {% endif %}
+                </div>
+                <a href="{% url 'edit_profile' %}" class="btn btn-sm btn-outline-secondary">Update Info</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<h4 class="fw-bold mb-3"><i class="fas fa-briefcase me-2 text-success"></i>Recent Job Openings</h4>
+<div class="row g-4 mb-5">
+    {% for job in jobs %}
+    <div class="col-md-6 col-lg-4">
+        <div class="card h-100 border-0 shadow-sm hover-up transition-all theme-card">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-start mb-3">
+                    <h5 class="card-title fw-bold text-body mb-0">{{ job.title }}</h5>
+                    {% if job.company.logo %}
+                    <img src="{{ job.company.logo.url }}" class="rounded"
+                        style="width: 40px; height: 40px; object-fit: cover;">
+                    {% endif %}
+                </div>
+                <h6 class="card-subtitle mb-2 text-muted">{{ job.company.name }}</h6>
+                <div class="mb-3">
+                    {% for skill in job.required_skills.split %}
+                    <span class="badge bg-body-secondary text-body border me-1">{{ skill }}</span>
+                    {% endfor %}
+                </div>
+
+                <div class="d-grid gap-2">
+                    {% if job.id in applied_job_ids %}
+                    <button class="btn btn-secondary btn-sm" disabled><i class="fas fa-check me-2"></i>Applied</button>
+                    {% else %}
+                    <a href="{% url 'job_detail' job.pk %}" class="btn btn-primary btn-sm">View & Apply</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+<h4 class="fw-bold mb-3"><i class="fas fa-history me-2 text-secondary"></i>Application History</h4>
+<div class="card shadow-sm border-0 theme-card">
+    <div class="card-body p-0">
+        <table class="table table-hover mb-0">
+            <thead class="table-light">
+                <tr>
+                    <th class="ps-4">Job Title</th>
+                    <th>Company</th>
+                    <th>Date Applied</th>
+                    <th class="text-end pe-4">Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for app in applications %}
+                <tr>
+                    <td class="ps-4 fw-bold text-body">{{ app.job.title }}</td>
+                    <td class="text-muted">{{ app.job.company.name }}</td>
+                    <td class="text-muted">{{ app.applied_at|date:"M d, Y" }}</td>
+                    <td class="text-end pe-4">
+                        {% if app.status == 'Accepted' %}
+                            <span class="badge bg-success rounded-pill px-3">Accepted</span>
+                        {% elif app.status == 'Pending' %}
+                            <span class="badge bg-warning text-dark rounded-pill px-3">Pending</span>
+                        {% else %}
+                            <span class="badge bg-secondary rounded-pill px-3">{{ app.status }}</span>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="4" class="text-center py-4 text-muted">No applications yet. Start applying! 🚀</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<style>
+    .glass-panel {
+        background: rgba(255, 255, 255, 0.9);
+        backdrop-filter: blur(10px);
+    }
+
+    [data-bs-theme="dark"] .glass-panel {
+        background: rgba(30, 32, 40, 0.7);
+        border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    }
+
+    .theme-card {
+        background: rgba(255, 255, 255, 0.8);
+    }
+
+    [data-bs-theme="dark"] .theme-card {
+        background: rgba(30, 32, 40, 0.6);
+    }
+
+    .hover-up:hover {
+        transform: translateY(-5px);
+    }
+
+    .transition-all {
+        transition: all 0.3s ease;
+    }
+
+    /* Table Styles */
+    [data-bs-theme="dark"] .table {
+        color: #e0e0e0;
+        border-color: rgba(255, 255, 255, 0.1);
+    }
+
+    [data-bs-theme="dark"] .table-light {
+        background-color: rgba(255, 255, 255, 0.05);
+        color: #fff;
+        border-color: rgba(255, 255, 255, 0.1);
+    }
+
+    [data-bs-theme="dark"] .table-hover tbody tr:hover {
+        background-color: rgba(255, 255, 255, 0.05);
+        color: #fff;
+    }
+</style>
+{% endblock %}

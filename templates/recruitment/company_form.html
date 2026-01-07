@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">Company Profile</div>
+            <div class="card-body">
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+
+                    <div class="row g-3">
+                        <div class="col-md-12">
+                            <label for="{{ form.name.id_for_label }}" class="form-label fw-bold">Company Name</label>
+                            {{ form.name }}
+                            {% if form.name.errors %}
+                            <div class="text-danger small">{{ form.name.errors }}</div>
+                            {% endif %}
+                        </div>
+
+                        <div class="col-md-12">
+                            <label for="{{ form.description.id_for_label }}"
+                                class="form-label fw-bold">Description</label>
+                            {{ form.description }}
+                            {% if form.description.errors %}
+                            <div class="text-danger small">{{ form.description.errors }}</div>
+                            {% endif %}
+                        </div>
+
+                        <div class="col-md-6">
+                            <label for="{{ form.website.id_for_label }}" class="form-label fw-bold">Website URL</label>
+                            {{ form.website }}
+                            {% if form.website.errors %}
+                            <div class="text-danger small">{{ form.website.errors }}</div>
+                            {% endif %}
+                        </div>
+
+                        <div class="col-md-6">
+                            <label for="{{ form.location.id_for_label }}" class="form-label fw-bold">Location</label>
+                            {{ form.location }}
+                            {% if form.location.errors %}
+                            <div class="text-danger small">{{ form.location.errors }}</div>
+                            {% endif %}
+                        </div>
+
+                        <div class="col-md-12">
+                            <label for="{{ form.logo.id_for_label }}" class="form-label fw-bold">Company Logo</label>
+                            {{ form.logo }}
+                            {% if form.logo.errors %}
+                            <div class="text-danger small">{{ form.logo.errors }}</div>
+                            {% endif %}
+                            <div class="form-text text-light">Upload a high-quality logo for your company profile.</div>
+                        </div>
+
+                        <div class="col-12 mt-4 text-end">
+                            <button type="submit" class="btn btn-primary px-4 py-2">
+                                <i class="fas fa-save me-2"></i>Save Profile
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,157 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mb-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-11">
+            <div class="card border-0 shadow-lg contact-card">
+                <div class="row g-0">
+                    <!-- Contact Info Column -->
+                    <div
+                        class="col-md-5 bg-gradient-dark p-5 d-flex flex-column justify-content-between text-white position-relative overflow-hidden">
+                        <div class="position-relative z-1">
+                            <h3 class="fw-bold mb-4">Get in Touch</h3>
+                            <p class="text-white-50 mb-5">Have questions or feedback? We'd love to hear from you.</p>
+
+                            <div class="d-flex align-items-center mb-4">
+                                <div class="icon-circle me-3"><i class="fas fa-map-marker-alt"></i></div>
+                                <span>hirexHub HeadQuarters,<br>Indore, India</span>
+                            </div>
+                            <div class="d-flex align-items-center mb-4">
+                                <div class="icon-circle me-3"><i class="fas fa-envelope"></i></div>
+                                <span>support@hirexhub.com</span>
+                            </div>
+                            <div class="d-flex align-items-center mb-4">
+                                <div class="icon-circle me-3"><i class="fas fa-phone"></i></div>
+                                <span>+91 123456XXXX</span>
+                            </div>
+                        </div>
+
+                        <div class="mt-4 position-relative z-1">
+                            <h5 class="fw-bold mb-3">Follow Us</h5>
+                            <div class="d-flex gap-3">
+                                <a href="https://www.facebook.com/" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                                <a href="https://www.twitter.com/" class="social-icon"><i class="fab fa-twitter"></i></a>
+                                <a href="https://www.linkedin.com/" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+                                <a href="https://www.instagram.com/" class="social-icon"><i class="fab fa-instagram"></i></a>
+                            </div>
+                        </div>
+
+                        <!-- Abstract Background Shapes -->
+                        <div class="circle-shape shape-1"></div>
+                        <div class="circle-shape shape-2"></div>
+                    </div>
+
+                    <!-- Contact Form Column -->
+                    <div class="col-md-7 p-5 bg-body-tertiary form-column">
+                        <h2 class="fw-bold mb-4 text-gradient">Send us a Message</h2>
+                        <form >
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label class="form-label small fw-bold text-uppercase opacity-75">Your Name</label>
+                                    <input type="text" class="form-control form-control-lg" placeholder=" Kumar">
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label small fw-bold text-uppercase opacity-75">Your Email</label>
+                                    <input type="email" class="form-control form-control-lg"
+                                        placeholder="name@example.com">
+                                </div>
+                                <div class="col-12">
+                                    <label class="form-label small fw-bold text-uppercase opacity-75">Subject</label>
+                                    <input type="text" class="form-control form-control-lg"
+                                        placeholder="How can we help?">
+                                </div>
+                                <div class="col-12">
+                                    <label class="form-label small fw-bold text-uppercase opacity-75">Message</label>
+                                    <textarea class="form-control form-control-lg" rows="5"
+                                        placeholder="Write your message here..."></textarea>
+                                </div>
+                                <div class="col-12 mt-4">
+                                    <button type="submit"
+                                        class="btn btn-primary btn-lg rounded-pill px-5 fw-bold shadow-sm w-100 hover-lift">
+                                        Send Message <i class="fas fa-paper-plane ms-2"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .contact-card {
+        border-radius: 20px;
+        overflow: hidden;
+    }
+
+    .bg-gradient-dark {
+        background: linear-gradient(135deg, #1a1c29 0%, #2c3e50 100%);
+    }
+
+    .icon-circle {
+        width: 40px;
+        height: 40px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #ffc107;
+    }
+
+    .social-icon {
+        width: 35px;
+        height: 35px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        text-decoration: none;
+        transition: all 0.3s;
+    }
+
+    .social-icon:hover {
+        background: var(--primary-gradient, #6c5ce7);
+        transform: translateY(-3px);
+        color: white;
+    }
+
+    .text-gradient {
+        background: var(--primary-gradient, linear-gradient(135deg, #667eea 0%, #764ba2 100%));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    /* Abstract Shapes */
+    .circle-shape {
+        position: absolute;
+        border-radius: 50%;
+        background: linear-gradient(45deg, #764ba2, #667eea);
+        opacity: 0.2;
+    }
+
+    .shape-1 {
+        width: 150px;
+        height: 150px;
+        top: -30px;
+        right: -30px;
+    }
+
+    .shape-2 {
+        width: 100px;
+        height: 100px;
+        bottom: 20px;
+        left: -40px;
+    }
+
+    .hover-lift:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+    }
+</style>
+{% endblock %}

@@ -1,0 +1,258 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        <div class="text-center mb-5 fade-in">
+            <h1 class="fw-bold mb-3 text-gradient" style="font-size: 3.5rem;">AI Resume Scorer</h1>
+            <p class="lead opacity-75">Upload your resume and see how well it matches your target skills.</p>
+        </div>
+
+        <div class="card border-0 shadow-lg glass-card mb-5">
+            <div class="card-body p-5">
+
+                {% if score is not None %}
+                <div class="text-center mb-4 fade-in">
+
+                    <!-- Circular Score Indicator -->
+                    <div class="score-circle mx-auto mb-4" style="--score: {{ score }};">
+                        <div class="score-inner">
+                            <span
+                                class="display-4 fw-bold {% if score > 70 %}text-success{% elif score > 40 %}text-warning{% else %}text-danger{% endif %}">
+                                {{ score }}%
+                            </span>
+                            <small class="text-muted d-block text-uppercase fw-bold"
+                                style="font-size: 0.8rem; margin-top: -10px;">Match</small>
+                        </div>
+                    </div>
+
+                    <p class="fs-5 mb-4 opacity-75">
+                        We found <strong>{{ match_count }}</strong> out of <strong>{{ total_skills }}</strong> required
+                        skills.
+                    </p>
+
+                    {% if missing_skills %}
+                    <div
+                        class="missing-skills-box p-4 rounded-3 text-start border border-warning border-opacity-25 bg-warning bg-opacity-10 mb-4">
+                        <h6 class="fw-bold text-warning mb-3"><i class="fas fa-exclamation-triangle me-2"></i> Missing
+                            Keywords:</h6>
+                        <div class="d-flex flex-wrap gap-2">
+                            {% for skill in missing_skills %}
+                            <span class="badge bg-body-secondary text-body border">{{ skill }}</span>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    {% endif %}
+
+                    <a href="{% url 'resume_scorer' %}"
+                        class="btn btn-outline-primary rounded-pill px-4 py-2 mt-2 hover-scale">
+                        <i class="fas fa-redo me-2"></i> Check Another Resume
+                    </a>
+                </div>
+                {% else %}
+
+                <form method="post" enctype="multipart/form-data" id="scorerForm">
+                    {% csrf_token %}
+
+                    <div class="mb-4">
+                        <label class="form-label fw-bold opacity-75">Select a Job Role (Optional)</label>
+                        <select class="form-select form-select-lg mb-3" name="job_role" id="jobRoleSelect">
+                            <option value="">-- Custom / Select Role --</option>
+                            {% for role, keywords in job_roles.items %}
+                            <option value="{{ role }}" data-keywords="{{ keywords }}">{{ role }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="form-label fw-bold opacity-75">Target Skills / Keywords</label>
+                        <textarea name="skills" id="skillsInput" class="form-control" rows="3"
+                            placeholder="e.g. Python, Django, HTML, CSS (Separate with commas)" required></textarea>
+                        <div class="form-text">Keywords will auto-fill if you select a role above. You can also add your
+                            own.</div>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="form-label fw-bold opacity-75">Upload Resume</label>
+                        <div
+                            class="upload-zone p-5 border border-2 border-dashed rounded-4 text-center position-relative">
+                            <input type="file" name="resume"
+                                class="position-absolute top-0 start-0 w-100 h-100 opacity-0 cursor-pointer"
+                                style="z-index: 10;" accept=".txt,.pdf,.doc,.docx" required>
+                            <div class="upload-content">
+                                <div class="icon-box mb-3 mx-auto bg-body-tertiary rounded-circle d-flex align-items-center justify-content-center"
+                                    style="width: 80px; height: 80px;">
+                                    <i class="fas fa-cloud-upload-alt fa-3x text-primary"></i>
+                                </div>
+                                <h5 class="fw-bold mb-1">Click to Upload or Drag & Drop</h5>
+                                <p class="text-muted small mb-0">Supported: PDF, DOCX, TXT</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="d-grid mt-5">
+                        <button type="submit" class="btn btn-primary btn-lg rounded-pill fw-bold shadow-lg hover-lift">
+                            <i class="fas fa-magic me-2"></i> Analyze Resume
+                        </button>
+                    </div>
+                </form>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    /* Glass Card */
+    .glass-card {
+        background: rgba(255, 255, 255, 0.7);
+        backdrop-filter: blur(10px);
+    }
+
+    [data-bs-theme="dark"] .glass-card {
+        background: rgba(30, 32, 40, 0.6);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    /* Text Gradient */
+    .text-gradient {
+        background: var(--primary-gradient, linear-gradient(135deg, #667eea 0%, #764ba2 100%));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    /* Upload Zone */
+    .upload-zone {
+        transition: all 0.3s ease;
+        background: rgba(255, 255, 255, 0.5);
+    }
+
+    [data-bs-theme="dark"] .upload-zone {
+        background: rgba(255, 255, 255, 0.05);
+        border-color: rgba(255, 255, 255, 0.2) !important;
+    }
+
+    .upload-zone:hover {
+        background: rgba(102, 126, 234, 0.1);
+        border-color: #667eea !important;
+    }
+
+    .cursor-pointer {
+        cursor: pointer;
+    }
+
+    /* Circular Score Progress (CSS Only) */
+    .score-circle {
+        position: relative;
+        width: 180px;
+        height: 180px;
+        border-radius: 50%;
+
+        background: conic-gradient({
+            % if score > 70 %
+        }
+
+        #198754 {
+            % elif score > 40 %
+        }
+
+        #ffc107 {
+            % else %
+        }
+
+        #dc3545 {
+            % endif %
+        }
+
+        calc(var(--score) * 1%),
+        rgba(0, 0, 0, 0.1) 0);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    [data-bs-theme="dark"] .score-circle {
+        background: conic-gradient({
+            % if score > 70 %
+        }
+
+        #198754 {
+            % elif score > 40 %
+        }
+
+        #ffc107 {
+            % else %
+        }
+
+        #dc3545 {
+            % endif %
+        }
+
+        calc(var(--score) * 1%),
+        rgba(255, 255, 255, 0.1) 0);
+    }
+
+    .score-inner {
+        width: 150px;
+        height: 150px;
+        background: var(--bs-body-bg);
+        /* Adaptive background */
+        border-radius: 50%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        box-shadow: inset 0 5px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Animations */
+    .hover-lift:hover {
+        transform: translateY(-3px);
+    }
+
+    .hover-scale:hover {
+        transform: scale(1.05);
+    }
+
+    .fade-in {
+        animation: fadeIn 0.8s ease-out;
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(10px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+</style>
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const roleSelect = document.getElementById('jobRoleSelect');
+        const skillsInput = document.getElementById('skillsInput');
+
+        if (roleSelect) {
+            roleSelect.addEventListener('change', function () {
+                const selectedOption = this.options[this.selectedIndex];
+                const keywords = selectedOption.getAttribute('data-keywords');
+
+                if (keywords) {
+                    skillsInput.value = keywords;
+                    // Highlight the change visually
+                    skillsInput.style.borderColor = '#667eea';
+                    setTimeout(() => {
+                        skillsInput.style.borderColor = '';
+                    }, 1000);
+                }
+            });
+        }
+    });
+</script>
+{% endblock %}

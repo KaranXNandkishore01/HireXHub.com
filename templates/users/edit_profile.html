@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card shadow-lg border-0 rounded-lg mt-5">
+            <div class="card-header bg-warning text-dark text-center py-4">
+                <h3 class="font-weight-light my-2">Edit Profile</h3>
+            </div>
+            <div class="card-body p-5">
+                <form method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <fieldset class="form-group">
+                        <legend class="border-bottom mb-4">Account Info</legend>
+                        {{ u_form|crispy }}
+                    </fieldset>
+                    <fieldset class="form-group mt-4">
+                        <legend class="border-bottom mb-4">Profile Details</legend>
+                        {{ p_form|crispy }}
+                    </fieldset>
+                    <div class="form-group mt-4 text-center">
+                        <button class="btn btn-primary btn-lg px-5 shadow-sm" type="submit"><i
+                                class="fas fa-save me-2"></i>Update</button>
+                        <a href="{% url 'profile' %}" class="btn btn-outline-secondary btn-lg px-5 shadow-sm ms-2"><i
+                                class="fas fa-times me-2"></i>Cancel</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

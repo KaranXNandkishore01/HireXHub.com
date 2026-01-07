@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="text-center mb-5">
+    <h1 class="display-3 fw-bold text-white mb-3" style="text-shadow: 0 4px 15px rgba(0,0,0,0.2);">Our <span
+            class="text-warning">Services</span></h1>
+    <p class="lead text-white-50">Comprehensive solutions for difficult recruitment challenges.</p>
+</div>
+
+<div class="row g-4 justify-content-center">
+    <!-- Service 1: AI Resume Ranking -->
+    <div class="col-md-6 col-lg-3">
+        <div class="card h-100 border-0 shadow-sm service-card"
+            style="background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(10px); border-radius: 15px; transition: transform 0.3s;">
+            <div class="card-body p-4 text-center d-flex flex-column">
+                <div class="icon-box mb-3 text-primary">
+                    <i class="fas fa-brain fa-3x"></i>
+                </div>
+                <h5 class="fw-bold mb-3">AI Resume Ranking</h5>
+                <p class="text-muted small mb-4 flex-grow-1">Automatically score resumes against job descriptions using
+                    advanced NLP logic.</p>
+                <div class="mt-auto">
+                    <a href="{% url 'resume_scorer' %}" class="btn btn-outline-primary rounded-pill px-4 btn-sm">Try
+                        Now</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Service 2: Smart Matching -->
+    <div class="col-md-6 col-lg-3">
+        <div class="card h-100 border-0 shadow-sm service-card"
+            style="background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(10px); border-radius: 15px; transition: transform 0.3s;">
+            <div class="card-body p-4 text-center d-flex flex-column">
+                <div class="icon-box mb-3 text-success">
+                    <i class="fas fa-handshake fa-3x"></i>
+                </div>
+                <h5 class="fw-bold mb-3">Smart Matching</h5>
+                <p class="text-muted small mb-4 flex-grow-1">Find the perfect role or candidate best suited to your
+                    unique skills.</p>
+                <div class="mt-auto">
+                    <a href="#" class="btn btn-outline-success rounded-pill px-4 btn-sm">Explore</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Service 3: Real-Time Analytics -->
+    <div class="col-md-6 col-lg-3">
+        <div class="card h-100 border-0 shadow-sm service-card"
+            style="background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(10px); border-radius: 15px; transition: transform 0.3s;">
+            <div class="card-body p-4 text-center d-flex flex-column">
+                <div class="icon-box mb-3 text-warning">
+                    <i class="fas fa-chart-line fa-3x"></i>
+                </div>
+                <h5 class="fw-bold mb-3">Real-Time Analytics</h5>
+                <p class="text-muted small mb-4 flex-grow-1">Track application status and performance instantly with
+                    live dashboards.</p>
+                <div class="mt-auto">
+                    <a href="#" class="btn btn-outline-warning rounded-pill px-4 btn-sm">View Data</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Service 4: Secure Recruiting -->
+    <div class="col-md-6 col-lg-3">
+        <div class="card h-100 border-0 shadow-sm service-card"
+            style="background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(10px); border-radius: 15px; transition: transform 0.3s;">
+            <div class="card-body p-4 text-center d-flex flex-column">
+                <div class="icon-box mb-3 text-danger">
+                    <i class="fas fa-shield-alt fa-3x"></i>
+                </div>
+                <h5 class="fw-bold mb-3">Secure Recruiting</h5>
+                <p class="text-muted small mb-4 flex-grow-1">Verified company profiles and data encryption for your
+                    peace of mind.</p>
+                <div class="mt-auto">
+                    <a href="#" class="btn btn-outline-danger rounded-pill px-4 btn-sm">Learn More</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .service-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1) !important;
+    }
+</style>
+{% endblock %}

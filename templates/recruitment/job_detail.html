@@ -1,0 +1,109 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="card">
+    <div class="card-body">
+        <h2 class="card-title">{{ job.title }}</h2>
+        <h5 class="card-subtitle mb-3 text-muted">{{ job.company.name }} - {{ job.company.location }}</h5>
+
+        <hr>
+        <h5>Description</h5>
+        <p>{{ job.description|linebreaks }}</p>
+
+        <h5>Required Skills</h5>
+        <p><span class="badge bg-secondary">{{ job.required_skills }}</span></p>
+
+        <p><strong>Salary:</strong> {{ job.salary }}</p>
+        <p><strong>Job Type:</strong> {{ job.job_type }}</p>
+        <p><strong>Work Mode:</strong> {{ job.work_mode }}</p>
+        <p><strong>Start Date:</strong> {{ job.start_date|default:"Not specified" }}</p>
+        <p><strong>Deadline:</strong> {{ job.deadline }}</p>
+
+        <hr>
+        {% if user.is_authenticated and user.is_applicant %}
+        {% if not is_open %}
+        <div class="alert alert-danger">
+            <h4 class="alert-heading">Applications Closed</h4>
+            <p>This job opening is not currently accepting applications.</p>
+            <hr>
+            <p class="mb-0">
+                {% if job.application_start_date and job.application_start_date > today %}
+                Applications will open on <strong>{{ job.application_start_date }}</strong>.
+                {% else %}
+                The application deadline has passed.
+                {% endif %}
+            </p>
+        </div>
+        {% elif has_applied %}
+        <div class="alert alert-success">You have already applied for this job.</div>
+        {% else %}
+        <h4>Apply Now</h4>
+        <div class="card border-0 shadow-lg p-4 mt-3">
+            <h5 class="text-center mb-4 text-uppercase fw-bold text-primary" style="letter-spacing: 1px;">Job
+                Application Form</h5>
+            <p class="text-center text-muted small mb-4">Please fill out the form below to submit your job application!
+            </p>
+
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <label class="form-label fw-bold small">Full Name <span class="text-danger">*</span></label>
+                        {{ form.full_name }}
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label fw-bold small">Phone Number <span class="text-danger">*</span></label>
+                        {{ form.phone }}
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label fw-bold small">E-mail <span class="text-danger">*</span></label>
+                        {{ form.email }}
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label fw-bold small">Applied Position</label>
+                        <input type="text" class="form-control" value="{{ job.title }}" readonly disabled>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label fw-bold small">Earliest Possible Start Date</label>
+                        {{ form.start_date }}
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label fw-bold small">Preferred Interview Date</label>
+                        {{ form.available_interview_date }}
+                    </div>
+
+                    <div class="col-12">
+                        <label class="form-label fw-bold small">About You</label>
+                        {{ form.cover_letter }}
+                        <div class="form-text">Please do not exceed 200 words.</div>
+                    </div>
+
+                    <div class="col-12">
+                        <label class="form-label fw-bold small">Upload Resume <span class="text-danger">*</span></label>
+                        <div class="p-4 border border-2 border-dashed rounded text-center">
+                            <i class="fas fa-cloud-upload-alt fa-3x text-secondary mb-3"></i>
+                            <h6 class="fw-bold">Upload a File</h6>
+                            <p class="text-muted small mb-2">Drag and drop files here</p>
+                            {{ form.resume }}
+                        </div>
+                    </div>
+
+                    <div class="col-12 text-center mt-4">
+                        <button type="submit" class="btn btn-primary px-5 py-2 rounded-pill fw-bold shadow">
+                            Submit Application
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        {% endif %}
+        {% elif user.is_authenticated and user.is_hr %}
+        <div class="alert alert-warning">HR accounts cannot apply for jobs.</div>
+        {% else %}
+        <a href="{% url 'login' %}?next={{ request.path }}" class="btn btn-primary">Login to Apply</a>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

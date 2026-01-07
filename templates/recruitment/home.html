@@ -1,0 +1,278 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<style>
+    /* Hero Section */
+    .hero-section {
+        position: relative;
+        padding: 6rem 2rem;
+        /* Background Image with Overlay for 65% Opacity effect */
+        background: linear-gradient(rgba(255, 255, 255, 0.35), rgba(255, 255, 255, 0.35)),
+        url("{% static 'images/herobanner.jpg' %}?v=2");
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+
+        backdrop-filter: blur(5px);
+        -webkit-backdrop-filter: blur(5px);
+        border-radius: 24px;
+        box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        overflow: hidden;
+        margin-bottom: 4rem;
+    }
+
+    [data-bs-theme="dark"] .hero-section {
+        /* Dark Mode Overlay */
+        background: linear-gradient(rgba(30, 32, 40, 0.35), rgba(30, 32, 40, 0.35)),
+        url("{% static 'images/herobanner.jpg' %}?v=2");
+        background-size: cover;
+        background-position: center;
+        box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+        border-color: rgba(255, 255, 255, 0.05);
+    }
+
+    .hero-title {
+        font-weight: 800;
+        background: linear-gradient(to right, #667eea, #764ba2);
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        margin-bottom: 1rem;
+        animation: fadeInDown 0.8s ease-out;
+    }
+
+    [data-bs-theme="dark"] .hero-title {
+        background: linear-gradient(to right, #aebaf8, #d4bff9);
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    .hero-subtitle {
+        font-size: 1.25rem;
+        color: #6c757d;
+        margin-bottom: 2rem;
+        font-weight: 400;
+        animation: fadeInUp 0.8s ease-out 0.2s both;
+    }
+
+    [data-bs-theme="dark"] .hero-subtitle {
+        color: #adb5bd;
+    }
+
+    /* Service Cards */
+    .service-card {
+        background: rgba(255, 255, 255, 0.8);
+        backdrop-filter: blur(10px);
+        border-radius: 20px;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        height: 100%;
+        padding: 2rem;
+    }
+
+    [data-bs-theme="dark"] .service-card {
+        background: rgba(30, 32, 40, 0.6);
+        border-color: rgba(255, 255, 255, 0.05);
+    }
+
+    .service-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    }
+
+    .icon-wrapper {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 1.5rem;
+        font-size: 2rem;
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.4));
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.05);
+    }
+
+    [data-bs-theme="dark"] .icon-wrapper {
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+    }
+
+    .card-title {
+        font-weight: 700;
+        margin-bottom: 1rem;
+    }
+
+    /* Animations */
+    @keyframes fadeInDown {
+        from {
+            opacity: 0;
+            transform: translate3d(0, -30px, 0);
+        }
+
+        to {
+            opacity: 1;
+            transform: translate3d(0, 0, 0);
+        }
+    }
+
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translate3d(0, 30px, 0);
+        }
+
+        to {
+            opacity: 1;
+            transform: translate3d(0, 0, 0);
+        }
+    }
+
+    .animate-card {
+        animation: fadeInUp 0.8s ease-out backwards;
+    }
+
+    .animate-card:nth-child(1) {
+        animation-delay: 0.2s;
+    }
+
+    .animate-card:nth-child(2) {
+        animation-delay: 0.3s;
+    }
+
+    .animate-card:nth-child(3) {
+        animation-delay: 0.4s;
+    }
+
+    .animate-card:nth-child(4) {
+        animation-delay: 0.5s;
+    }
+</style>
+
+<!-- Hero Section -->
+<div class="container">
+    <div class="hero-section text-center">
+        <h1 class="display-3 hero-title">Welcome to HirexHub!</h1>
+        {% if user.is_authenticated %}
+        <h2 class="mb-3 fw-bold" style="color: #667eea;">Hello, {{ user.first_name }} {{ user.last_name }}! 👋</h2>
+        {% endif %}
+        <p class="hero-subtitle">Find your dream job or the perfect candidate with our AI-powered ranking system.</p>
+
+        {% if not user.is_authenticated %}
+        <div class="d-flex gap-3 justify-content-center" style="animation: fadeInUp 0.8s ease-out 0.4s both;">
+            <a class="btn btn-primary btn-lg shadow-lg" href="{% url 'register' %}" role="button">
+                Get Started <i class="fas fa-arrow-right ms-2"></i>
+            </a>
+            <a class="btn btn-outline-primary btn-lg" href="{% url 'login' %}" role="button">
+                Sign In
+            </a>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+<!-- Our Services Section -->
+<div class="container mb-5">
+    <div class="text-center mb-5">
+        <h6 class="text-uppercase fw-bold text-primary mb-2">What We Offer</h6>
+        <h2 class="fw-bold">Our Premium Services</h2>
+    </div>
+
+    <div class="row g-4">
+        <!-- Service 1 -->
+        <div class="col-md-3 col-sm-6 animate-card">
+            <div class="service-card text-center">
+                <div class="icon-wrapper text-primary">
+                    <i class="fas fa-brain"></i>
+                </div>
+                <h5 class="card-title">AI Resume Ranking</h5>
+                <p class="text-muted small mb-3">Automatically score resumes against job descriptions using advanced
+                    NLP.</p>
+                <a href="{% url 'resume_scorer' %}" class="btn btn-sm btn-outline-primary rounded-pill">Try Now</a>
+            </div>
+        </div>
+        <!-- Service 2 -->
+        <div class="col-md-3 col-sm-6 animate-card">
+            <div class="service-card text-center">
+                <div class="icon-wrapper text-success">
+                    <i class="fas fa-handshake"></i>
+                </div>
+                <h5 class="card-title">Smart Matching</h5>
+                <p class="text-muted small mb-3">Find the perfect role or candidate best suited to your unique skills.
+                </p>
+                <a href="{% url 'smart_matching' %}" class="btn btn-sm btn-outline-primary rounded-pill">Explore</a>
+            </div>
+        </div>
+        <!-- Service 3 -->
+        <div class="col-md-3 col-sm-6 animate-card">
+            <div class="service-card text-center">
+                <div class="icon-wrapper text-warning">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <h5 class="card-title">Real-Time Analytics</h5>
+                <p class="text-muted small mb-3">Track application status and performance instantly with live
+                    dashboards.</p>
+                <a href="{% url 'analytics_dashboard' %}" class="btn btn-sm btn-outline-primary rounded-pill">View
+                    Data</a>
+            </div>
+        </div>
+        <!-- Service 4 -->
+        <div class="col-md-3 col-sm-6 animate-card">
+            <div class="service-card text-center">
+                <div class="icon-wrapper text-danger">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <h5 class="card-title">Secure Recruiting</h5>
+                <p class="text-muted small mb-3">Verified company profiles and data encryption for your peace of mind.
+                </p>
+                <a href="{% url 'secure_recruiting' %}" class="btn btn-sm btn-outline-primary rounded-pill">Learn
+                    More</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Featured Jobs Section -->
+<div class="container my-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h3 class="fw-bold m-0">Featured Jobs</h3>
+        <a href="#" class="btn btn-link text-decoration-none fw-bold">View All <i
+                class="fas fa-arrow-right ms-1"></i></a>
+    </div>
+
+    <div class="row g-4">
+        {% for job in featured_jobs %}
+        <div class="col-md-4">
+            <div class="card h-100 border-0 shadow-sm" style="transition: transform 0.3s; border-radius: 16px;">
+                <div class="card-body p-4">
+                    <div class="d-flex justify-content-between align-items-start mb-3">
+                        <div class="bg-light rounded p-2 text-primary">
+                            <i class="fas fa-briefcase fa-lg"></i>
+                        </div>
+                        <span class="badge bg-primary-subtle text-primary rounded-pill px-3 py-2">Full Time</span>
+                    </div>
+                    <h5 class="card-title fw-bold mb-1">{{ job.title }}</h5>
+                    <h6 class="card-subtitle mb-3 text-muted">{{ job.company.name }}</h6>
+                    <p class="card-text text-muted small mb-4">{{ job.description|truncatewords:20 }}</p>
+                    <div class="d-grid">
+                        <a href="{% url 'job_detail' job.pk %}"
+                            class="btn btn-outline-primary rounded-pill fw-bold">Apply
+                            Now</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-12 text-center py-5">
+            <div class="text-muted mb-3">
+                <i class="far fa-folder-open fa-3x"></i>
+            </div>
+            <h5 class="fw-bold">No jobs posted yet</h5>
+            <p class="text-muted">Check back soon for new opportunities!</p>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
